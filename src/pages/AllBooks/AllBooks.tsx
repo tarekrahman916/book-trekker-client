@@ -1,6 +1,13 @@
 import BookCard from "../../components/BookCard";
-import { useGetBooksQuery } from "../../redux/features/books/bookApi";
-import { searchState } from "../../redux/features/books/bookSlice";
+import {
+  useGetBooksFiltersQuery,
+  useGetBooksQuery,
+} from "../../redux/features/books/bookApi";
+import {
+  genreFilter,
+  publicationYearFilter,
+  searchState,
+} from "../../redux/features/books/bookSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { IBook } from "../../types/globalTypes";
 
@@ -9,9 +16,18 @@ export default function AllBooks() {
   const { search, genre, publicationYear } = useAppSelector(
     (state) => state.book
   );
+  const { data } = useGetBooksQuery({ search, genre, publicationYear });
+  const { data: filters } = useGetBooksFiltersQuery(undefined);
+  let books;
 
-  const { data } = useGetBooksQuery(search, genre, publicationYear);
-  const books = data?.data;
+  if (genre) {
+    books = data?.data?.filter((item: IBook) => item.genre === genre);
+  } else if (publicationYear) { 
+    books = data?.data?.filter((item: IBook) => item.publicationDate === publicationYear);
+  }
+  else {
+    books = data?.data;
+  }
 
   return (
     <div className="px-12">
@@ -27,21 +43,31 @@ export default function AllBooks() {
         <div className="flex justify-between py-6">
           <div className="flex gap-6">
             <div>
-              <select className="select select-bordered w-full ">
+              <select
+                onChange={(e) => dispatch(genreFilter(e.target.value))}
+                className="select select-bordered w-full "
+              >
                 <option disabled selected>
                   Filter by Genre
                 </option>
-                <option>Han Solo</option>
-                <option>Greedo</option>
+                {filters?.data?.map((book: IBook) => (
+                  <option>{book?.genre}</option>
+                ))}
               </select>
             </div>
             <div className="space-y-3 ">
-              <select className="select select-bordered w-full ">
+              <select
+                onChange={(e) =>
+                  dispatch(publicationYearFilter(e.target.value))
+                }
+                className="select select-bordered w-full "
+              >
                 <option disabled selected>
                   Filter by Publication Year
                 </option>
-                <option>Han Solo</option>
-                <option>Greedo</option>
+                {books?.map((book: IBook) => (
+                  <option>{book?.publicationDate}</option>
+                ))}
               </select>
             </div>
           </div>

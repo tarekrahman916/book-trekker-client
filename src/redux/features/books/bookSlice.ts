@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface IBook {
   search: string | null;
-  genre: string;
-  publicationYear: number | null;
+  genre: string | null;
+  publicationYear: string | null;
 }
 
 const initialState: IBook = {
   search: "",
   genre: "",
-  publicationYear: null,
+  publicationYear: "",
 };
 
 const BookSlice = createSlice({
@@ -20,9 +20,16 @@ const BookSlice = createSlice({
     searchState: (state, action: PayloadAction<string>) => {
       state.search = action.payload;
     },
+    genreFilter: (state, action: PayloadAction<string>) => {
+      state.genre = action.payload;
+    },
+    publicationYearFilter: (state, action: PayloadAction<string>) => {
+      state.publicationYear = action.payload;
+    },
   },
 });
 
-export const { searchState } = BookSlice.actions;
+export const { searchState, genreFilter, publicationYearFilter } =
+  BookSlice.actions;
 
 export default BookSlice.reducer;
