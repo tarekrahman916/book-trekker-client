@@ -19,9 +19,13 @@ const BookSlice = createSlice({
   reducers: {
     searchState: (state, action: PayloadAction<string>) => {
       state.search = action.payload;
+      state.genre = "";
+      state.publicationYear = "";
     },
     genreFilter: (state, action: PayloadAction<string>) => {
       state.genre = action.payload;
+      state.search = "";
+      state.publicationYear = "";
     },
     publicationYearFilter: (state, action: PayloadAction<string>) => {
       state.publicationYear = action.payload;

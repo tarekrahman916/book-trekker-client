@@ -20,12 +20,18 @@ export default function AllBooks() {
   const { data: filters } = useGetBooksFiltersQuery(undefined);
   let books;
 
-  if (genre) {
+  if (genre && publicationYear) {
+    books = data?.data?.filter(
+      (item: IBook) =>
+        item.genre === genre && item.publicationDate === publicationYear
+    );
+  } else if (genre) {
     books = data?.data?.filter((item: IBook) => item.genre === genre);
-  } else if (publicationYear) { 
-    books = data?.data?.filter((item: IBook) => item.publicationDate === publicationYear);
-  }
-  else {
+  } else if (publicationYear) {
+    books = data?.data?.filter(
+      (item: IBook) => item.publicationDate === publicationYear
+    );
+  } else {
     books = data?.data;
   }
 
@@ -65,7 +71,7 @@ export default function AllBooks() {
                 <option disabled selected>
                   Filter by Publication Year
                 </option>
-                {books?.map((book: IBook) => (
+                {filters?.data?.map((book: IBook) => (
                   <option>{book?.publicationDate}</option>
                 ))}
               </select>

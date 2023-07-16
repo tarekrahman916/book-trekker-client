@@ -1,0 +1,8 @@
+.bgImage {
+  background: url("../../assets/bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-clip: border-box;
+  background-size: cover;
+}
