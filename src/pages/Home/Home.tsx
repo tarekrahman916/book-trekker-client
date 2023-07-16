@@ -1,3 +1,9 @@
+import TopBanner from "./TopBanner/TopBanner";
+
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <TopBanner />
+    </div>
+  );
 }

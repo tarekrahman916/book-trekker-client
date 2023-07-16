@@ -1,0 +1,8 @@
+.topBanner {
+  background: url("../../../assets/bg-banner.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-clip: border-box;
+  background-size: cover;
+}
