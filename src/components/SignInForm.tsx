@@ -1,22 +1,41 @@
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
+interface SignInFormInputs {
+  email: string;
+  password: string;
+}
+
 export default function SignInForm() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<SignInFormInputs>();
+
+  const onSubmit = (data: SignInFormInputs) => {
+    console.log(data);
+    reset();
+  };
+
   return (
     <div>
       <div className="w-full  p-8  rounded-xl bg-gray-900 text-gray-100">
         <h1 className="text-2xl font-bold text-center">Sign In</h1>
-        <form action="" className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-1 text-sm">
             <label htmlFor="username" className="block text-gray-400">
               Email
             </label>
             <input
               type="email"
-              name="email"
               id="email"
               placeholder="Email"
+              {...register("email", { required: "Email is required" })}
               className="w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:border-violet-400"
             />
+            {errors.email && <p>{errors.email.message}</p>}
           </div>
           <div className="space-y-1 text-sm">
             <label htmlFor="password" className="block text-gray-400">
@@ -24,11 +43,12 @@ export default function SignInForm() {
             </label>
             <input
               type="password"
-              name="password"
+              {...register("password", { required: "Password is required" })}
               id="password"
               placeholder="Password"
               className="w-full px-4 py-3 rounded-md border border-gray-700 bg-gray-900 text-gray-100 focus:border-violet-400"
             />
+            {errors.password && <p>{errors.password.message}</p>}
             <div className="flex justify-end text-xs text-gray-400">
               <a rel="noopener noreferrer" href="#">
                 Forgot Password?
