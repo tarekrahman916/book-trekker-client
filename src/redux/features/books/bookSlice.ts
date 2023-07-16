@@ -2,7 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface IBook {
-  search: string;
+  search: string | null;
   genre: string;
   publicationYear: number | null;
 }

@@ -1,13 +1,16 @@
 import BookCard from "../../components/BookCard";
 import { useGetBooksQuery } from "../../redux/features/books/bookApi";
 import { searchState } from "../../redux/features/books/bookSlice";
-import { useAppDispatch } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { IBook } from "../../types/globalTypes";
 
 export default function AllBooks() {
   const dispatch = useAppDispatch();
+  const { search, genre, publicationYear } = useAppSelector(
+    (state) => state.book
+  );
 
-  const { data } = useGetBooksQuery(undefined);
+  const { data } = useGetBooksQuery(search, genre, publicationYear);
   const books = data?.data;
 
   return (
