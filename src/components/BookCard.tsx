@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import image from "../assets/book.jpg";
 import { IBook } from "../types/globalTypes";
 
@@ -6,7 +7,7 @@ interface IProps {
 }
 
 export default function BookCard({ book }: IProps) {
-  const { title, genre, author, publicationDate } = book;
+  const { _id, title, genre, author, publicationDate } = book;
   return (
     <div className="card bg-base-100 shadow-xl rounded-2xl h-[480px] flex flex-col items-start justify-between p-5 overflow-hidden  border border-gray-100 hover:shadow-2xl hover:scale-[101%] transition-all gap-2">
       <figure>
@@ -21,7 +22,9 @@ export default function BookCard({ book }: IProps) {
           If a dog chews shoes whose shoes does he choose?
         </p>
         <div className="card-actions justify-end">
-          <button className="btn btn-sm">See Details</button>
+          <Link to={`/book-details/${_id}`} className="btn btn-sm">
+            See Details
+          </Link>
           <button className="btn btn-sm">Add Wishlist</button>
         </div>
       </div>

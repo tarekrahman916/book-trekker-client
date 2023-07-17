@@ -25,6 +25,9 @@ export default function Navbar() {
       <li>
         <Link to="/all-books">All Books</Link>
       </li>
+      <li>
+        <Link to="/add-book">Add Book</Link>
+      </li>
       {!user.email && (
         <>
           <li>
@@ -46,7 +49,9 @@ export default function Navbar() {
     <>
       <div className="navbar w-full h-16 fixed top lg:px-8   backdrop-blur-lg z-10 ">
         <div className="navbar-start">
-          <a className="btn btn-ghost normal-case text-xl">Book Trekker</a>
+          <Link to="/" className="btn btn-ghost normal-case text-xl">
+            Book Trekker
+          </Link>
         </div>
         <div className="navbar-end ">
           <ul className="menu menu-horizontal px-1 hidden lg:flex">

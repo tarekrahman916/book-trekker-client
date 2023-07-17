@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import banner from "../../../assets/cropped-removebg-preview.png";
 import "./TopBanner.css";
 
@@ -14,7 +15,9 @@ export default function TopBanner() {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-            <button className="btn btn-primary">See All Books</button>
+            <Link to="/all-books" className="btn btn-primary">
+              See All Books
+            </Link>
           </div>
         </div>
       </div>

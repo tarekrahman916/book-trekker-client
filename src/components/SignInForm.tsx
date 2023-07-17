@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 
@@ -10,8 +11,6 @@ interface SignInFormInputs {
 }
 
 export default function SignInForm() {
-  const { isError, error } = useAppSelector((state) => state.user);
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -19,14 +18,24 @@ export default function SignInForm() {
     formState: { errors },
   } = useForm<SignInFormInputs>();
 
+  const { isError, error, user, isLoading } = useAppSelector(
+    (state) => state.user
+  );
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (user.email && !isLoading) {
+      navigate(from, { replace: true });
+    }
+  }, [isLoading, from, navigate, user.email]);
 
   const onSubmit = (data: SignInFormInputs) => {
-    console.log(data);
     dispatch(loginUser({ email: data.email, password: data.password }));
     if (!isError) {
       toast.success("Login Successfully");
-      navigate("/");
       reset();
     } else {
       toast.error(error);

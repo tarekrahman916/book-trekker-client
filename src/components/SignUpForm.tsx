@@ -21,7 +21,6 @@ export default function SignUpForm() {
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: SignUpFormInputs) => {
-    console.log(data);
     dispatch(createUser({ email: data.email, password: data.password }));
     if (!isError) {
       navigate("/");
@@ -30,8 +29,6 @@ export default function SignUpForm() {
       toast.error(error);
     }
   };
-
-  console.log(import.meta.env.MESSAGING_SENDER_ID);
 
   return (
     <div>
