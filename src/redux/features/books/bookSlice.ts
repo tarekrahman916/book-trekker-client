@@ -5,12 +5,14 @@ interface IBook {
   search: string | null;
   genre: string | null;
   publicationYear: string | null;
+  limit: string | null;
 }
 
 const initialState: IBook = {
   search: "",
   genre: "",
   publicationYear: "",
+  limit: null,
 };
 
 const BookSlice = createSlice({
@@ -30,10 +32,13 @@ const BookSlice = createSlice({
     publicationYearFilter: (state, action: PayloadAction<string>) => {
       state.publicationYear = action.payload;
     },
+    limitFilter: (state, action: PayloadAction<string>) => {
+      state.limit = action.payload;
+    },
   },
 });
 
-export const { searchState, genreFilter, publicationYearFilter } =
+export const { searchState, genreFilter, publicationYearFilter, limitFilter } =
   BookSlice.actions;
 
 export default BookSlice.reducer;

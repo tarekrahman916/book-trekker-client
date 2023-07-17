@@ -13,10 +13,10 @@ import { IBook } from "../../types/globalTypes";
 
 export default function AllBooks() {
   const dispatch = useAppDispatch();
-  const { search, genre, publicationYear } = useAppSelector(
+  const { search, genre, publicationYear, limit } = useAppSelector(
     (state) => state.book
   );
-  const { data } = useGetBooksQuery({ search, genre, publicationYear });
+  const { data } = useGetBooksQuery({ search, genre, publicationYear, limit });
   const { data: filters } = useGetBooksFiltersQuery(undefined);
   let books;
 
