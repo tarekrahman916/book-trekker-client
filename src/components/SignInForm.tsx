@@ -1,5 +1,8 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../redux/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 interface SignInFormInputs {
   email: string;
@@ -7,6 +10,8 @@ interface SignInFormInputs {
 }
 
 export default function SignInForm() {
+  const { isError, error } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,9 +19,18 @@ export default function SignInForm() {
     formState: { errors },
   } = useForm<SignInFormInputs>();
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = (data: SignInFormInputs) => {
     console.log(data);
-    reset();
+    dispatch(loginUser({ email: data.email, password: data.password }));
+    if (!isError) {
+      toast.success("Login Successfully");
+      navigate("/");
+      reset();
+    } else {
+      toast.error(error);
+    }
   };
 
   return (
