@@ -1,8 +1,22 @@
+import { signOut } from "firebase/auth";
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../redux/hook";
+import { auth } from "../lib/firebase";
+import { setUser } from "../redux/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 export default function Navbar() {
   const { user } = useAppSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      dispatch(setUser(null));
+      toast.success("Logout Successfully");
+    });
+  };
+
   const menuData = (
     <>
       <li>
@@ -23,7 +37,7 @@ export default function Navbar() {
       )}
       {user.email && (
         <li>
-          <button>LogOut</button>
+          <button onClick={handleLogout}>LogOut</button>
         </li>
       )}
     </>
