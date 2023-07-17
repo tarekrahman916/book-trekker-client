@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../redux/hook";
 
 export default function Navbar() {
+  const { user } = useAppSelector((state) => state.user);
   const menuData = (
     <>
       <li>
@@ -9,12 +11,21 @@ export default function Navbar() {
       <li>
         <Link to="/all-books">All Books</Link>
       </li>
-      <li>
-        <Link to="/sign-up">Sign Up</Link>
-      </li>
-      <li>
-        <Link to="/sign-in">Sign In</Link>
-      </li>
+      {!user.email && (
+        <>
+          <li>
+            <Link to="/sign-up">Sign Up</Link>
+          </li>
+          <li>
+            <Link to="/sign-in">Sign In</Link>
+          </li>
+        </>
+      )}
+      {user.email && (
+        <li>
+          <button>LogOut</button>
+        </li>
+      )}
     </>
   );
   return (
