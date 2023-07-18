@@ -10,3 +10,13 @@ export interface IBook {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type IBookInput = {
+  title: string;
+  description?: string;
+  author: string;
+  genre: string;
+  publishedYear: string;
+  userEmail: string;
+  image?: string;
+};

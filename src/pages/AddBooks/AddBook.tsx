@@ -1,3 +1,11 @@
+import CreateBookForm from "../../components/CreateBookForm";
+
 export default function AddBook() {
-  return <div>AddBook</div>;
+  return (
+    <div>
+      <div>
+        <CreateBookForm />
+      </div>
+    </div>
+  );
 }

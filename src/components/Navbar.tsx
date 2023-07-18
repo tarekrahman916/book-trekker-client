@@ -1,5 +1,6 @@
 import { signOut } from "firebase/auth";
 import { toast } from "react-hot-toast";
+import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import { setUser } from "../redux/features/user/userSlice";
@@ -39,9 +40,11 @@ export default function Navbar() {
         </>
       )}
       {user.email && (
-        <li>
-          <button onClick={handleLogout}>LogOut</button>
-        </li>
+        <>
+          <li>
+            <button onClick={handleLogout}>LogOut</button>
+          </li>
+        </>
       )}
     </>
   );
@@ -57,6 +60,15 @@ export default function Navbar() {
           <ul className="menu menu-horizontal px-1 hidden lg:flex">
             {menuData}
           </ul>
+          {user.email && (
+            <div className="tooltip tooltip-bottom" data-tip={user.email}>
+              <label className="btn btn-ghost btn-circle ">
+                <div className=" rounded-full">
+                  <FaUserAlt />
+                </div>
+              </label>
+            </div>
+          )}
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
               <svg
