@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export default function BookCard({ book }: IProps) {
-  const { _id, title, genre, author, publicationDate } = book;
+  const { _id, title, genre, author, publishedYear } = book;
   return (
     <div className="card bg-base-100 shadow-xl rounded-2xl h-[480px] flex flex-col items-start justify-between p-5 overflow-hidden  border border-gray-100 hover:shadow-2xl hover:scale-[101%] transition-all gap-2">
       <figure>
@@ -17,7 +17,7 @@ export default function BookCard({ book }: IProps) {
         <div className="badge badge-outline">{genre}</div>
         <h2 className="card-title">{title}</h2>
         <p>Author: {author}</p>
-        <p>Published: {publicationDate}</p>
+        <p>Published: {publishedYear}</p>
         <p className="font-medium">
           If a dog chews shoes whose shoes does he choose?
         </p>

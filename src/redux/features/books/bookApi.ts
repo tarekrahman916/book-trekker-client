@@ -10,12 +10,9 @@ const bookApi = api.injectEndpoints({
       }),
     }),
     getBooks: builder.query({
-      query: ({ search, limit }) =>
-        `/books/?searchTerm=${search}&limit=${limit}`,
+      query: (search) => `/books?searchTerm=${search}`,
     }),
-    getBooksFilters: builder.query({
-      query: () => `/books`,
-    }),
+
     getSingleBook: builder.query({
       query: (id) => `/books/${id}`,
     }),
@@ -24,7 +21,6 @@ const bookApi = api.injectEndpoints({
 
 export const {
   useGetBooksQuery,
-  useGetBooksFiltersQuery,
   useGetSingleBookQuery,
   useCreateBookMutation,
 } = bookApi;

@@ -27,7 +27,6 @@ const BookSlice = createSlice({
     genreFilter: (state, action: PayloadAction<string>) => {
       state.genre = action.payload;
       state.search = "";
-      state.publicationYear = "";
     },
     publicationYearFilter: (state, action: PayloadAction<string>) => {
       state.publicationYear = action.payload;

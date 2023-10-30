@@ -1,8 +1,5 @@
 import BookCard from "../../components/BookCard";
-import {
-  useGetBooksFiltersQuery,
-  useGetBooksQuery,
-} from "../../redux/features/books/bookApi";
+import { useGetBooksQuery } from "../../redux/features/books/bookApi";
 import {
   genreFilter,
   publicationYearFilter,
@@ -13,23 +10,37 @@ import { IBook } from "../../types/globalTypes";
 
 export default function AllBooks() {
   const dispatch = useAppDispatch();
-  const { search, genre, publicationYear, limit } = useAppSelector(
+  const { genre, search, publicationYear, limit } = useAppSelector(
     (state) => state.book
   );
-  const { data } = useGetBooksQuery({ search, genre, publicationYear, limit });
-  const { data: filters } = useGetBooksFiltersQuery(undefined);
+  console.log(genre, search, publicationYear, limit);
+
+  const { data, isSuccess } = useGetBooksQuery(search);
+
+  const genres: string[] = [];
+  const publishedYears: string[] = [];
+
+  data?.data?.map((item: IBook) => {
+    if (!genres.includes(item.genre)) {
+      genres.push(item.genre);
+    }
+    if (!publishedYears.includes(item.publishedYear)) {
+      publishedYears.push(item.publishedYear);
+    }
+  });
+
   let books;
 
   if (genre && publicationYear) {
     books = data?.data?.filter(
       (item: IBook) =>
-        item.genre === genre && item.publicationDate === publicationYear
+        item.genre === genre && item.publishedYear === publicationYear
     );
   } else if (genre) {
     books = data?.data?.filter((item: IBook) => item.genre === genre);
   } else if (publicationYear) {
     books = data?.data?.filter(
-      (item: IBook) => item.publicationDate === publicationYear
+      (item: IBook) => item.publishedYear === publicationYear
     );
   } else {
     books = data?.data;
@@ -56,12 +67,13 @@ export default function AllBooks() {
                 <option disabled selected>
                   Filter by Genre
                 </option>
-                {filters?.data?.map((book: IBook) => (
-                  <option>{book?.genre}</option>
+                <option value="">All</option>
+                {genres?.map((item: string) => (
+                  <option>{item}</option>
                 ))}
               </select>
             </div>
-            <div className="space-y-3 ">
+            <div className="space-y-3">
               <select
                 onChange={(e) =>
                   dispatch(publicationYearFilter(e.target.value))
@@ -71,8 +83,9 @@ export default function AllBooks() {
                 <option disabled selected>
                   Filter by Publication Year
                 </option>
-                {filters?.data?.map((book: IBook) => (
-                  <option>{book?.publicationDate}</option>
+                <option value="">All</option>
+                {publishedYears?.map((year) => (
+                  <option>{year}</option>
                 ))}
               </select>
             </div>
