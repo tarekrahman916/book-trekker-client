@@ -1,6 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { useState } from "react";
 import BookCard from "../../components/BookCard";
+import Loader from "../../components/Loader";
 import { useGetBooksQuery } from "../../redux/features/books/bookApi";
 import {
   genreFilter,
@@ -17,12 +18,14 @@ export default function AllBooks() {
     (state) => state.book
   );
 
+  console.log(currentPage);
+
   const options = {
     search: search,
     page: currentPage,
   };
 
-  const { data, isSuccess } = useGetBooksQuery(options);
+  const { data, isLoading } = useGetBooksQuery(options);
 
   let totalPages;
 
@@ -110,24 +113,30 @@ export default function AllBooks() {
             </div>
           </div>
         </div>
-        <div className=" grid lg:grid-cols-3 grid-cols-1 gap-10 pb-10">
-          {books?.map((book: IBook) => (
-            <BookCard key={book._id} book={book as IBook} />
-          ))}
-        </div>
-        <div className="join flex justify-center items-center">
-          {pageNumbers.map((page) => (
-            <button
-              key={page}
-              className={`join-item btn btn-primary ${
-                page === currentPage ? "btn-active" : ""
-              }`}
-              onClick={() => setCurrentPage(page)}
-            >
-              {page}
-            </button>
-          ))}
-        </div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div>
+            <div className=" grid lg:grid-cols-3 grid-cols-1 gap-10 pb-5">
+              {books?.map((book: IBook) => (
+                <BookCard key={book._id} book={book as IBook} />
+              ))}
+            </div>
+            <div className="join flex justify-center items-center mb-20">
+              {pageNumbers.map((page) => (
+                <button
+                  key={page}
+                  className={`join-item btn btn-primary ${
+                    page === currentPage ? "btn-active" : ""
+                  }`}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
