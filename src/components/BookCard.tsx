@@ -15,7 +15,7 @@ export default function BookCard({ book }: IProps) {
       </figure>
       <div className="card-body">
         <div className="badge badge-outline">{genre}</div>
-        <h2 className="card-title">{title}</h2>
+        <h2 className="card-title ">{title}</h2>
         <p>Author: {author}</p>
         <p>Published: {publishedYear}</p>
         <p className="font-medium">

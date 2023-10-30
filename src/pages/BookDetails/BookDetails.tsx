@@ -1,16 +1,32 @@
-import { useParams } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
 import image from "../../assets/book.jpg";
-import { useGetSingleBookQuery } from "../../redux/features/books/bookApi";
+import {
+  useDeleteBookMutation,
+  useGetSingleBookQuery,
+} from "../../redux/features/books/bookApi";
 import { useAppSelector } from "../../redux/hook";
 import { IBook } from "../../types/globalTypes";
 
 export default function BookDetails() {
   const { user } = useAppSelector((state) => state.user);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data } = useGetSingleBookQuery(id);
   const book: IBook = data?.data;
-  console.log(book);
+
+  const [deleteBook, { isLoading }] = useDeleteBookMutation();
+
+  const handleDelete = () => {
+    deleteBook(id!);
+
+    if (!isLoading) {
+      toast.success("This Book deleted successfully");
+      navigate("/all-books");
+    }
+  };
 
   return (
     <div>
@@ -38,7 +54,12 @@ export default function BookDetails() {
           {user?.email === book?.userEmail && (
             <div>
               <button className="btn btn-info btn-sm">Edit</button>
-              <button className="btn btn-error btn-sm ml-3">Delete</button>
+              <button
+                onClick={handleDelete}
+                className="btn btn-error btn-sm ml-3"
+              >
+                Delete
+              </button>
             </div>
           )}
         </div>
