@@ -1,3 +1,5 @@
+/* eslint-disable no-unsafe-optional-chaining */
+import { useState } from "react";
 import BookCard from "../../components/BookCard";
 import { useGetBooksQuery } from "../../redux/features/books/bookApi";
 import {
@@ -9,13 +11,30 @@ import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { IBook } from "../../types/globalTypes";
 
 export default function AllBooks() {
+  const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useAppDispatch();
   const { genre, search, publicationYear, limit } = useAppSelector(
     (state) => state.book
   );
-  console.log(genre, search, publicationYear, limit);
 
-  const { data, isSuccess } = useGetBooksQuery(search);
+  const options = {
+    search: search,
+    page: currentPage,
+  };
+
+  const { data, isSuccess } = useGetBooksQuery(options);
+
+  let totalPages;
+
+  if (data) {
+    const total = data.meta.total;
+    totalPages = Math.ceil(total / 10);
+  }
+
+  const pageNumbers = Array.from(
+    { length: totalPages as number },
+    (_, index) => index + 1
+  );
 
   const genres: string[] = [];
   const publishedYears: string[] = [];
@@ -91,9 +110,22 @@ export default function AllBooks() {
             </div>
           </div>
         </div>
-        <div className=" grid lg:grid-cols-3 grid-cols-1 gap-10 pb-20">
+        <div className=" grid lg:grid-cols-3 grid-cols-1 gap-10 pb-10">
           {books?.map((book: IBook) => (
             <BookCard key={book._id} book={book as IBook} />
+          ))}
+        </div>
+        <div className="join flex justify-center items-center">
+          {pageNumbers.map((page) => (
+            <button
+              key={page}
+              className={`join-item btn btn-primary ${
+                page === currentPage ? "btn-active" : ""
+              }`}
+              onClick={() => setCurrentPage(page)}
+            >
+              {page}
+            </button>
           ))}
         </div>
       </div>

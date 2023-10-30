@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import image from "../assets/book.jpg";
+// import image from "../assets/book.jpg";
 import { IBook } from "../types/globalTypes";
 
 interface IProps {
@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export default function BookCard({ book }: IProps) {
-  const { _id, title, genre, author, publishedYear } = book;
+  const { _id, title, genre, author, publishedYear, image } = book;
   return (
     <div className="card bg-base-100 shadow-xl rounded-2xl h-[480px] flex flex-col items-start justify-between p-5 overflow-hidden  border border-gray-100 hover:shadow-2xl hover:scale-[101%] transition-all gap-2">
       <figure>

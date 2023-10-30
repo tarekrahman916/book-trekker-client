@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useCreateBookMutation } from "../redux/features/books/bookApi";
 import { useAppSelector } from "../redux/hook";
 
@@ -21,7 +23,9 @@ export default function CreateBookForm() {
     formState: { errors },
   } = useForm<BookFormInput>();
 
-  const [createBook, { isSuccess }] = useCreateBookMutation();
+  const [createBook, { isSuccess, isLoading }] = useCreateBookMutation();
+  console.log(isSuccess, isLoading);
+  const navigate = useNavigate();
 
   const onSubmit = (data: BookFormInput) => {
     const bookData = {
@@ -36,8 +40,9 @@ export default function CreateBookForm() {
 
     createBook(bookData);
 
-    if (isSuccess) {
+    if (data) {
       toast.success("Book Created Successfully");
+      navigate("/all-books");
     } else {
       toast.error("Book created Failed");
     }

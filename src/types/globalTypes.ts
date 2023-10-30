@@ -6,6 +6,7 @@ export interface IBook {
   genre: string;
   publishedYear: string;
   userEmail: string;
+  image: string;
   reviews?: string[];
   createdAt: Date;
   updatedAt: Date;

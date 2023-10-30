@@ -10,7 +10,7 @@ const bookApi = api.injectEndpoints({
       }),
     }),
     getBooks: builder.query({
-      query: (search) => `/books?searchTerm=${search}`,
+      query: ({ search, page }) => `/books?searchTerm=${search}&page=${page}`,
     }),
 
     getSingleBook: builder.query({

@@ -14,7 +14,7 @@ export default function HomeBooks() {
       <h1 className="text-2xl font-bold">Top Books</h1>
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-10 pb-20">
         {data?.data.map((book: IBook) => (
-          <BookCard book={book as IBook} />
+          <BookCard key={book._id} book={book as IBook} />
         ))}
       </div>
     </div>
