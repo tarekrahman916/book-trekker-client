@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { usePostReviewMutation } from "../redux/features/books/bookApi";
 
 const Review = ({ id }: { id: string }) => {

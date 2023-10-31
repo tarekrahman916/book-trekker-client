@@ -14,7 +14,7 @@ import { IBook } from "../../types/globalTypes";
 export default function AllBooks() {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useAppDispatch();
-  const { genre, search, publicationYear, limit } = useAppSelector(
+  const { genre, search, publicationYear } = useAppSelector(
     (state) => state.book
   );
 

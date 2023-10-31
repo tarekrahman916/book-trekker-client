@@ -19,7 +19,6 @@ export default function CreateBookForm() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<BookFormInput>();
 

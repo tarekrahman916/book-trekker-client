@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
@@ -27,7 +29,6 @@ const EditBook = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<BookFormInput>();
 
@@ -45,7 +46,7 @@ const EditBook = () => {
 
     updateBook(options);
 
-    console.log(data, isSuccess, updateBook);
+    console.log(errors, isSuccess);
 
     if (!isLoading) {
       toast.success("Book updated successfully!");

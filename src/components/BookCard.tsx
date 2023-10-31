@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// import image from "../assets/book.jpg";
 import { IBook } from "../types/globalTypes";
 
 interface IProps {

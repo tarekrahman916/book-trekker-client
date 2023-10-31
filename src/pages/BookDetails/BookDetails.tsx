@@ -9,6 +9,7 @@ import {
 import { useAppSelector } from "../../redux/hook";
 import { IBook } from "../../types/globalTypes";
 import Review from "../../components/Review";
+import avater from "../../assets/avater.png";
 
 export default function BookDetails() {
   const { user } = useAppSelector((state) => state.user);
@@ -34,7 +35,7 @@ export default function BookDetails() {
     <div>
       <div className="flex max-w-7xl mx-auto items-center border-b border-gray-300">
         <div className="w-[50%]">
-          <img src={image} alt="" />
+          <img src={book?.image ? book.image : image} alt="" />
         </div>
         <div className="w-[50%] space-y-3 mx-5">
           <p className="text-2xl">{book?.title}</p>
@@ -107,7 +108,7 @@ export default function BookDetails() {
           <>
             <div className="flex items-center justify-center gap-4 px-2 mb-5 lg:w-[600px]">
               <img
-                src="https://source.unsplash.com/80x80/?portrait?1"
+                src={avater}
                 alt=""
                 className="w-12 h-12 bg-center bg-cover rounded-full  bg-gray-700"
               />
