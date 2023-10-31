@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import toast from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import image from "../../assets/book.jpg";
 import {
   useDeleteBookMutation,
@@ -14,6 +14,8 @@ export default function BookDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  console.log(confirm);
+
   const { data } = useGetSingleBookQuery(id);
   const book: IBook = data?.data;
 
@@ -21,7 +23,6 @@ export default function BookDetails() {
 
   const handleDelete = () => {
     deleteBook(id!);
-
     if (!isLoading) {
       toast.success("This Book deleted successfully");
       navigate("/all-books");
@@ -53,19 +54,44 @@ export default function BookDetails() {
 
           {user?.email === book?.userEmail && (
             <div>
-              <button className="btn btn-info btn-sm">Edit</button>
-              <button
-                onClick={handleDelete}
+              <Link to={`/update-book/${book._id}`} className="btn btn-sm">
+                <button className="btn btn-info btn-sm">Edit</button>
+              </Link>
+              <label
+                htmlFor="confirm-modal"
                 className="btn btn-error btn-sm ml-3"
               >
                 Delete
-              </button>
+              </label>
             </div>
           )}
         </div>
       </div>
       <div className="lg:mx-10 md:mx-6">
         <h1 className="text-xl font-semibold">{book?.description}</h1>
+      </div>
+      <div>
+        <input type="checkbox" id="confirm-modal" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box">
+            <p className="py-2 text-xl">
+              Are you want to delete{" "}
+              <span className="font-bold">{book?.title}</span>
+            </p>
+            <div className="modal-action">
+              <label
+                onClick={handleDelete}
+                htmlFor="confirm-modal"
+                className="btn btn-error"
+              >
+                Confirm
+              </label>
+              <label htmlFor="confirm-modal" className="btn">
+                Close!
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

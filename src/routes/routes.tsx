@@ -34,6 +34,14 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      // {
+      //   path: "/update-book/:id",
+      //   element: (
+      //     <PrivateRoute>
+      //       <EditBook />
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "/sign-up",
         element: <SignUp />,
