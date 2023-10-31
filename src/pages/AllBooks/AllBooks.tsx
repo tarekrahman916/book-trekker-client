@@ -18,6 +18,8 @@ export default function AllBooks() {
     (state) => state.book
   );
 
+  console.log(genre);
+
   const options = {
     search: search,
     page: currentPage,

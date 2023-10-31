@@ -81,6 +81,7 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user.email = action.payload;
         state.isLoading = false;
+        state.error = null;
         state.isError = false;
       })
       .addCase(loginUser.rejected, (state, action) => {

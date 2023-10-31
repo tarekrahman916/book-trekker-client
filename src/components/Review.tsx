@@ -27,8 +27,8 @@ const Review = ({ id }: { id: string }) => {
   return (
     <div className=" mt-3">
       <div className="flex justify-center items-center w-[100vw]">
-        <div className="">
-          <form className="flex flex-col" onSubmit={handleSubmit}>
+        <div className="lg:w-1/2 w-2/3">
+          <form className="flex flex-col " onSubmit={handleSubmit}>
             <textarea
               placeholder="Your review..."
               className="textarea p-4 rounded-md  border text-gray-100 bg-gray-900"

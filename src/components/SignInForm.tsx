@@ -34,7 +34,7 @@ export default function SignInForm() {
 
   const onSubmit = (data: SignInFormInputs) => {
     dispatch(loginUser({ email: data.email, password: data.password }));
-
+    console.log(error);
     if (!isError) {
       toast.success("Login Successfully");
       reset();
