@@ -31,12 +31,11 @@ export default function Navbar() {
       </li>
       {!user.email && (
         <>
-          <li>
-            <Link to="/sign-up">Sign Up</Link>
-          </li>
-          <li>
-            <Link to="/sign-in">Sign In</Link>
-          </li>
+          <button className="btn btn-primary">
+            <li>
+              <Link to="/sign-in">Sign In/ Sign In</Link>
+            </li>
+          </button>
         </>
       )}
       {user.email && (

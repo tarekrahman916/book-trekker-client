@@ -18,8 +18,6 @@ export default function AllBooks() {
     (state) => state.book
   );
 
-  console.log(currentPage);
-
   const options = {
     search: search,
     page: currentPage,
@@ -67,6 +65,8 @@ export default function AllBooks() {
   } else {
     books = data?.data;
   }
+
+  console.log(books);
 
   return (
     <div className="px-12">
@@ -122,19 +122,25 @@ export default function AllBooks() {
                 <BookCard key={book._id} book={book as IBook} />
               ))}
             </div>
-            <div className="join flex justify-center items-center mb-20">
-              {pageNumbers.map((page) => (
-                <button
-                  key={page}
-                  className={`join-item btn btn-primary ${
-                    page === currentPage ? "btn-active" : ""
-                  }`}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
+            {books.length ? (
+              <div className="join flex justify-center items-center mb-20">
+                {pageNumbers.map((page) => (
+                  <button
+                    key={page}
+                    className={`join-item btn btn-primary ${
+                      page === currentPage ? "btn-active" : ""
+                    }`}
+                    onClick={() => setCurrentPage(page)}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <h1 className="text-2xl text-center font-bold">
+                Books not found!
+              </h1>
+            )}
           </div>
         )}
       </div>

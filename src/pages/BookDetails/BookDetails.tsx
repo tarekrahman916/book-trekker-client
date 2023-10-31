@@ -8,6 +8,7 @@ import {
 } from "../../redux/features/books/bookApi";
 import { useAppSelector } from "../../redux/hook";
 import { IBook } from "../../types/globalTypes";
+import Review from "../../components/Review";
 
 export default function BookDetails() {
   const { user } = useAppSelector((state) => state.user);
@@ -92,6 +93,30 @@ export default function BookDetails() {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <div className="my-4">
+          <h2 className="text-3xl  font-semibold text-center">
+            {user.email ? "Your opinion matters!" : "Review"}
+          </h2>
+          <hr />
+        </div>
+        {user.email && <Review id={book?._id} />}
+
+        {book?.reviews.map((review: string) => (
+          <>
+            <div className="flex items-center justify-center gap-4 px-2 mb-5 lg:w-[600px]">
+              <img
+                src="https://source.unsplash.com/80x80/?portrait?1"
+                alt=""
+                className="w-12 h-12 bg-center bg-cover rounded-full  bg-gray-700"
+              />
+              <div>
+                <p className="flex items-center py-2 font-medium ">{review}</p>
+              </div>
+            </div>
+          </>
+        ))}
       </div>
     </div>
   );

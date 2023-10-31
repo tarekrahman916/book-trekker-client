@@ -7,7 +7,7 @@ export interface IBook {
   publishedYear: string;
   userEmail: string;
   image: string;
-  reviews?: string[];
+  reviews: string[];
   createdAt: Date;
   updatedAt: Date;
 }
